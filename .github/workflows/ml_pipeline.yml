@@ -1,0 +1,27 @@
+name: Simple ML CI/CD
+on:
+  push:
+    branches: [main]
+jobs:
+  ml_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest tests
+      - name: Run data preprocessing
+        run: python src/data_preprocessing.py
+      - name: Train model
+        run: python src/train_model.py
+      - name: Evaluate model
+        run: python src/train/evaluate_model.py
+      - name: Upload trained model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-model
+          path: models/model.pkl
