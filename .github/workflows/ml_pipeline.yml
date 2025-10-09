@@ -19,7 +19,7 @@ jobs:
       - name: Train model
         run: python src/train_model.py
       - name: Evaluate model
-        run: python src/train/evaluate_model.py
+        run: python src/evaluate_model.py
       - name: Upload trained model artifact
         uses: actions/upload-artifact@v4
         with:
